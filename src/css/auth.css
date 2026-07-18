@@ -1,0 +1,184 @@
+/* src/css/auth.css */
+/* Styles shared by LoginPage, RegisterPage, ForgotPasswordPage */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.auth-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2xl);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.auth-card h1 {
+  font-size: 24px;
+  margin-bottom: var(--space-sm);
+}
+
+.auth-card > p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: var(--space-lg);
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.auth-card label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  display: block;
+  color: var(--color-text);
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.auth-card textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.auth-card textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.auth-card button[type="submit"] {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: var(--space-sm);
+  transition: background-color 0.2s ease;
+}
+
+.auth-card button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.auth-card button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-card p:last-child {
+  margin-top: var(--space-lg);
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.auth-card p:last-child a {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.error-banner {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: var(--space-md);
+}
+
+.success-banner {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: var(--space-md);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ LEGAL PAGES (Privacy Policy, Terms) — plain, no card ============ */
+.legal-page-plain {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.legal-page-plain h1 {
+  font-size: 32px;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+
+.legal-updated {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2xl);
+}
+
+.legal-section {
+  margin-bottom: var(--space-xl);
+}
+
+.legal-section h2 {
+  font-size: 18px;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.legal-section p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .legal-page-plain {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .legal-page-plain h1 {
+    font-size: 24px;
+  }
+
+  .legal-section p {
+    font-size: 15px;
+  }
+}

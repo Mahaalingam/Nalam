@@ -1,0 +1,88 @@
+/* src/css/patientDetail.css */
+
+.patient-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.patient-detail-header h1 {
+  font-size: 24px;
+  margin-bottom: var(--space-xs);
+}
+
+.patient-detail-header p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.status-badge {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.status-pending {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.status-completed {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.notes-textarea {
+  width: 100%;
+  padding: var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: var(--space-md);
+  resize: vertical;
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.patient-detail-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.btn-secondary-action {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-secondary-action:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.modal-confirm-text {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.modal-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}

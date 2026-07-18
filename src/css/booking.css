@@ -1,0 +1,80 @@
+/* src/css/booking.css */
+
+.booking-page {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.booking-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2xl);
+  width: 100%;
+  max-width: 480px;
+}
+
+.booking-card h1 {
+  font-size: 22px;
+  margin-bottom: var(--space-xs);
+}
+
+.booking-card > p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: var(--space-xl);
+}
+
+.booking-card form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.booking-card label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.booking-card select,
+.booking-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  background-color: var(--color-white);
+}
+
+.booking-card select:disabled {
+  background-color: var(--color-bg-secondary);
+  cursor: not-allowed;
+}
+
+.booking-card select:focus,
+.booking-card input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.booking-card button[type="submit"] {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 13px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: var(--space-sm);
+}
+
+.booking-card button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.booking-card button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

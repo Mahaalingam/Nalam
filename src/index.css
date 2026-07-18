@@ -1,0 +1,83 @@
+/* src/index.css */
+
+/* ============================================
+   DESIGN SYSTEM — CSS Custom Properties (Variables)
+   Every color, spacing value, and shadow in the app
+   should reference one of these, not a hardcoded value.
+   ============================================ */
+:root {
+  /* Colors — Primary Blue (healthcare, trust, calm) */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+
+  /* Colors — Neutrals */
+  --color-white: #ffffff;
+  --color-bg-secondary: #f5f7fa;
+  --color-border: #e2e8f0;
+  --color-text: #1a1a1a;
+  --color-text-muted: #64748b;
+
+  /* Colors — Status */
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-error: #dc2626;
+  --color-error-bg: #fee2e2;
+
+  /* Spacing scale — use multiples of 4px for consistency */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  /* Font */
+  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ============================================
+   RESET — removes inconsistent browser defaults
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+}

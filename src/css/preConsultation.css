@@ -1,0 +1,144 @@
+/* src/css/preConsultation.css */
+
+.preconsult-page {
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.preconsult-form {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-2xl);
+  width: 100%;
+  max-width: 720px;
+}
+
+.preconsult-form h1 {
+  font-size: 24px;
+  margin-bottom: var(--space-xs);
+}
+
+.preconsult-subtitle {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: var(--space-2xl);
+}
+
+.preconsult-form section {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preconsult-form section:last-of-type {
+  border-bottom: none;
+}
+
+.preconsult-form h2 {
+  font-size: 16px;
+  margin-bottom: var(--space-md);
+}
+
+.preconsult-form label {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.preconsult-form input,
+.preconsult-form select,
+.preconsult-form textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.preconsult-form input:focus,
+.preconsult-form select:focus,
+.preconsult-form textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.section-note {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: var(--space-md);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-sm);
+}
+
+.checkbox-item {
+  display: flex !important;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 14px;
+  font-weight: 400 !important;
+  padding: var(--space-sm);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.checkbox-item:has(input:checked) {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.checkbox-item input {
+  width: auto !important;
+}
+
+.pain-slider {
+  width: 100%;
+  accent-color: var(--color-primary);
+  margin-top: var(--space-sm);
+}
+
+.preconsult-submit {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: var(--space-md);
+}
+
+.preconsult-submit:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.preconsult-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
