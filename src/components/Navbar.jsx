@@ -30,7 +30,7 @@ function Navbar() {
         {currentUser ? (
           <>
             {currentUser.role === "patient" && (
-              <Link to="/book-appointment" className="navbar-cta">
+              <Link to="/pre-consultation" className="navbar-cta">
                 + Book Appointment
               </Link>
             )}

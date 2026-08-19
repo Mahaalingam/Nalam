@@ -1,9 +1,7 @@
 // src/pages/PreConsultationForm.jsx
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
-import { savePreConsultation } from "../services/preConsultationService";
 import FileUpload from "../components/FileUpload";
 import "../css/preConsultation.css";
 
@@ -19,13 +17,8 @@ const CONDITIONS_LIST = [
 ];
 
 function PreConsultationForm() {
-  // useParams reads the dynamic :appointmentId segment from the URL
-  const { appointmentId } = useParams();
   const { currentUser } = useAuth();
-  const { showToast } = useToast();
   const navigate = useNavigate();
-
-  const [submitting, setSubmitting] = useState(false);
 
   // One big state object for the whole form, since it's all submitted together
   const [formData, setFormData] = useState({
@@ -82,31 +75,25 @@ function PreConsultationForm() {
     setFiles((prev) => ({ ...prev, [fileKey]: file }));
   }
 
-  async function handleSubmit(e) {
+  // No appointment exists yet at this point, so there's nothing to save to
+  // Firestore here. We just carry the completed form forward to the summary
+  // page for review, and it gets saved once the appointment is booked.
+  function handleSubmit(e) {
     e.preventDefault();
-    setSubmitting(true);
 
-    try {
-      // Note: file bytes aren't uploaded (see FileUpload.jsx comment) —
-      // we just record which files were selected, by name, for now
-      const fileNames = Object.fromEntries(
-        Object.entries(files).map(([key, file]) => [key, file?.name || null])
-      );
+    const fileNames = Object.fromEntries(
+      Object.entries(files).map(([key, file]) => [key, file?.name || null])
+    );
 
-      await savePreConsultation(appointmentId, {
-        ...formData,
-        patientId: currentUser.uid,
-        uploadedFiles: fileNames,
-      });
-
-      showToast("Pre-consultation form submitted!", "success");
-      navigate(`/summary/${appointmentId}`);
-    } catch (err) {
-      showToast("Failed to submit form. Please try again.", "error");
-      console.error(err);
-    } finally {
-      setSubmitting(false);
-    }
+    navigate("/summary", {
+      state: {
+        preConsultationData: {
+          ...formData,
+          patientId: currentUser.uid,
+          uploadedFiles: fileNames,
+        },
+      },
+    });
   }
 
   return (
@@ -304,8 +291,8 @@ function PreConsultationForm() {
           />
         </section>
 
-        <button type="submit" disabled={submitting} className="preconsult-submit">
-          {submitting ? "Submitting..." : "Submit Pre-Consultation Form"}
+        <button type="submit" className="preconsult-submit">
+          Continue to Summary
         </button>
       </form>
     </div>

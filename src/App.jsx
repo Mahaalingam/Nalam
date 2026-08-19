@@ -56,19 +56,28 @@ function App() {
         />
 
         <Route
-          path="/book-appointment"
+          path="/pre-consultation"
           element={
             <ProtectedRoute allowedRole="patient">
-              <BookAppointmentPage />
+              <PreConsultationForm />
             </ProtectedRoute>
           }
         />
 
         <Route
-          path="/pre-consultation/:appointmentId"
+          path="/summary"
           element={
             <ProtectedRoute allowedRole="patient">
-              <PreConsultationForm />
+              <SummaryPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/book-appointment"
+          element={
+            <ProtectedRoute allowedRole="patient">
+              <BookAppointmentPage />
             </ProtectedRoute>
           }
         />

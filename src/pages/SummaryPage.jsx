@@ -1,18 +1,35 @@
 // src/pages/SummaryPage.jsx
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { getPreConsultation, getAppointmentById } from "../services/preConsultationService";
 import Loader from "../components/Loader";
 import SummaryCard, { SummaryRow } from "../components/SummaryCard";
 import "../css/summary.css";
 
 function SummaryPage() {
-  const { appointmentId } = useParams();
+  const { appointmentId } = useParams(); // only present on /summary/:appointmentId
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isConfirmation = Boolean(appointmentId);
+  const passedData = location.state?.preConsultationData;
+
   const [appointment, setAppointment] = useState(null);
-  const [preConsult, setPreConsult] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [preConsult, setPreConsult] = useState(isConfirmation ? null : passedData);
+  const [loading, setLoading] = useState(isConfirmation);
 
   useEffect(() => {
+    if (!isConfirmation) {
+      // Review-before-booking mode: nothing to fetch, data came in via
+      // router state. If someone lands here directly (refresh, typed URL,
+      // back button after leaving the flow) there's no data to show —
+      // send them back to start the form again.
+      if (!passedData) navigate("/pre-consultation", { replace: true });
+      return;
+    }
+
+    // Confirmation mode: appointment + pre-consultation were both saved to
+    // Firestore already, so fetch them by appointmentId.
     async function loadData() {
       const [apptData, formData] = await Promise.all([
         getAppointmentById(appointmentId),
@@ -22,13 +39,16 @@ function SummaryPage() {
       setPreConsult(formData);
       setLoading(false);
     }
-
     loadData();
-  }, [appointmentId]);
+  }, [isConfirmation, appointmentId, passedData, navigate]);
 
-  if (loading) return <Loader fullScreen />;
+  function handleContinue() {
+    navigate("/book-appointment", { state: { preConsultationData: passedData } });
+  }
 
-  if (!preConsult) {
+  if (loading || !preConsult) return <Loader fullScreen />;
+
+  if (isConfirmation && !preConsult) {
     return (
       <div className="summary-page">
         <div className="empty-state">
@@ -42,10 +62,11 @@ function SummaryPage() {
   return (
     <div className="summary-page">
       <div className="summary-header">
-        <h1>Pre-Consultation Summary</h1>
+        <h1>{isConfirmation ? "Appointment Confirmed" : "Review Your Information"}</h1>
         <p>
-          This is a structured overview of the information the patient entered.
-          It contains no medical advice or diagnosis — for doctor review only.
+          {isConfirmation
+            ? "This is a structured overview of the information you submitted."
+            : "Please review your details before choosing your appointment slot."}
         </p>
       </div>
 
@@ -106,9 +127,20 @@ function SummaryPage() {
       </SummaryCard>
 
       <div className="summary-actions">
-        <Link to="/patient-dashboard" className="btn-summary-primary">
-          Back to Dashboard
-        </Link>
+        {isConfirmation ? (
+          <Link to="/patient-dashboard" className="btn-summary-primary">
+            Back to Dashboard
+          </Link>
+        ) : (
+          <>
+            <button onClick={() => navigate(-1)} className="btn-summary-primary">
+              Edit
+            </button>
+            <button onClick={handleContinue} className="btn-summary-primary">
+              Continue to Book Appointment
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

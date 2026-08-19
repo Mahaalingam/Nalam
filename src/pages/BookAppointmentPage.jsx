@@ -1,10 +1,11 @@
 // src/pages/BookAppointmentPage.jsx
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { getAllDoctors } from "../services/doctorService";
 import { bookAppointment } from "../services/appointmentService";
+import { savePreConsultation } from "../services/preConsultationService";
 import Loader from "../components/Loader";
 import "../css/booking.css";
 
@@ -17,6 +18,18 @@ function BookAppointmentPage() {
   const { currentUser } = useAuth();
   const { showToast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const preConsultationData = location.state?.preConsultationData;
+
+  // If someone lands here directly (refresh, back button, typed URL) without
+  // having gone through the pre-consultation + summary steps first, send
+  // them back to the start of the flow.
+  useEffect(() => {
+    if (!preConsultationData) {
+      navigate("/pre-consultation", { replace: true });
+    }
+  }, [preConsultationData, navigate]);
 
   const [doctors, setDoctors] = useState([]);
   const [loadingDoctors, setLoadingDoctors] = useState(true);
@@ -39,7 +52,6 @@ function BookAppointmentPage() {
   }, []);
 
   // Derive dropdown options FROM the doctors list, instead of hardcoding them.
-  // This means adding a new doctor in Firestore automatically updates this form.
   const hospitals = [...new Set(doctors.map((doc) => doc.hospital))];
 
   const departments = [
@@ -72,8 +84,12 @@ function BookAppointmentPage() {
         timeSlot,
       });
 
-      showToast("Appointment booked! Let's fill your pre-consultation form.", "success");
-      navigate(`/pre-consultation/${appointmentId}`);
+      // The appointment now exists — attach the pre-consultation info that
+      // was collected and reviewed earlier in the flow.
+      await savePreConsultation(appointmentId, preConsultationData);
+
+      showToast("Appointment booked!", "success");
+      navigate(`/summary/${appointmentId}`);
     } catch (err) {
       showToast("Failed to book appointment. Please try again.", "error");
       console.error(err);
@@ -82,7 +98,7 @@ function BookAppointmentPage() {
     }
   }
 
-  if (loadingDoctors) return <Loader fullScreen />;
+  if (loadingDoctors || !preConsultationData) return <Loader fullScreen />;
 
   return (
     <div className="booking-page">
